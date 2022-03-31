@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 1, 0, 1 )
@@ -9,6 +9,13 @@ radius = 0.5
 
 [sub_resource type="CapsuleShape" id=3]
 radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
+size = Vector3( 0.2, 0.2, 0.4 )
 
 [sub_resource type="SphereShape" id=4]
 radius = 10.0
@@ -30,6 +37,12 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
 depth = 10.0
 polygon = PoolVector2Array( -10, 0, -7.1, 7.1, 0, 10, 7.1, 7.1, 10, 0 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Vue"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.7 )
+mesh = SubResource( 6 )
+skeleton = NodePath("../../MeshInstance")
+material/0 = null
 
 [node name="Son" type="Area" parent="."]
 
