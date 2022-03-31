@@ -15,6 +15,7 @@ radius = 0.5
 radius = 0.5
 
 [node name="Joueur" type="KinematicBody"]
+collision_mask = 6
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
