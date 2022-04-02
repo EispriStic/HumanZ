@@ -1,6 +1,6 @@
 extends KinematicBody
-export (float) var speed:float = 10
 
+export (float) var speed:float = 10
 var velocity_y := 0.0
 var restRot = rotation.y
 
@@ -22,6 +22,8 @@ func _physics_process(delta):
 	
 	if not is_on_floor():
 		velocity_y -= Global.gravity * delta
+	else:
+		velocity_y = 0.0
 	
 	var velocity = Vector3(
 		direction_ground.x * speed,

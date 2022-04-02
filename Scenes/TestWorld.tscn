@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Joueur.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Zombie.tscn" type="PackedScene" id=2]
@@ -8,28 +8,53 @@ albedo_color = Color( 1, 0.643137, 0.839216, 1 )
 
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
+size = Vector3( 40, 2, 40 )
 
-[sub_resource type="ConvexPolygonShape" id=3]
-points = PoolVector3Array( 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1 )
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 20, 1, 20 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.509804, 0.752941, 0.823529, 1 )
+
+[sub_resource type="CubeMesh" id=4]
+material = SubResource( 3 )
+size = Vector3( 6, 6, 6 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 3, 3, 3 )
 
 [node name="TestWorld" type="Node"]
 
 [node name="Joueur" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="Ground" type="StaticBody" parent="."]
 collision_layer = 4
 collision_mask = 3
 
-[node name="Ground" type="MeshInstance" parent="StaticBody"]
-transform = Transform( 20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -1, 0 )
+[node name="Mesh" type="MeshInstance" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -1, 0 )
-shape = SubResource( 3 )
+[node name="CollisionShape" type="CollisionShape" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 5 )
+
+[node name="House" type="StaticBody" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="Mesh" type="MeshInstance" parent="House"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="House"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+shape = SubResource( 6 )
 
 [node name="Zombie" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )
