@@ -15,7 +15,7 @@ func _physics_process(delta):
 			vec.y = $Vue.translation.y
 			$Vue.look_at(vec, Vector3.UP)
 
-			var direction = translation.direction_to(cible.translation) * speed
+			var direction = _deplacement()
 			if not is_on_floor():
 				velocity_y -= Global.gravity * delta
 				direction.y = velocity_y
@@ -27,6 +27,9 @@ func _physics_process(delta):
 #			var collider = get_slide_collision(i)
 #			if collider.collider.is_in_group("Joueur"):
 #				print("HURT")
+
+func _deplacement():
+	return translation.direction_to(cible.translation) * speed
 
 func _on_Vue_body_entered(body):
 	cible = body
