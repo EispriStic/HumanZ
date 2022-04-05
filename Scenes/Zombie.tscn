@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Classes/Zombie.gd" type="Script" id=1]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 1, 0, 1 )
@@ -23,9 +25,11 @@ radius = 10.0
 [node name="Zombie" type="KinematicBody"]
 collision_layer = 2
 collision_mask = 5
+script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+layers = 2
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -34,7 +38,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0
 shape = SubResource( 3 )
 
 [node name="Vue" type="Area" parent="."]
-collision_layer = 2
+collision_layer = 0
 
 [node name="CollisionPolygon" type="CollisionPolygon" parent="Vue"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
@@ -48,8 +52,14 @@ skeleton = NodePath("../../MeshInstance")
 material/0 = null
 
 [node name="Son" type="Area" parent="."]
-collision_layer = 2
+collision_layer = 0
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Son"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 4 )
+disabled = true
+
+[connection signal="body_entered" from="Vue" to="." method="_on_Vue_body_entered"]
+[connection signal="body_exited" from="Vue" to="." method="_on_Vue_body_exited"]
