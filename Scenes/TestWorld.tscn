@@ -45,7 +45,7 @@ navmesh = SubResource( 7 )
 
 [node name="Ground" type="StaticBody" parent="Navigation/NavigationMeshInstance"]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 0
 
 [node name="Mesh" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Ground"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )

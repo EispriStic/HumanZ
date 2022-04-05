@@ -1,8 +1,11 @@
 extends KinematicBody
 
-export (float) var speed:float = 10
+export (float) var speed = 10
+export (float) var sneek_speed = 5
+var actual_speed = speed
 var velocity_y := 0.0
 var restRot = rotation.y
+var accroupie = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,9 +29,9 @@ func _physics_process(delta):
 		velocity_y = 0.0
 	
 	var velocity = Vector3(
-		direction_ground.x * speed,
+		direction_ground.x * actual_speed,
 		velocity_y,
-		direction_ground.y * speed)
+		direction_ground.y * actual_speed)
 	
 	move_and_slide(velocity,Vector3.UP)
 	
@@ -38,3 +41,9 @@ func _input(event):
 		restRot += PI/2
 	if(Input.is_action_just_pressed("camera_right")):
 		restRot -= PI/2
+	if(Input.is_action_just_pressed("accroupie")):
+		accroupie = !accroupie
+		if accroupie:
+			actual_speed = sneek_speed
+		else:
+			actual_speed = speed
