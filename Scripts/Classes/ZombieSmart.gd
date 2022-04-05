@@ -5,11 +5,11 @@ var i_path = 1
 var cible_position = Vector3.ZERO
 
 func _deplacement(delta:float):
-	if cible != null:
+	if cible_vue != null:
 		var space_state = get_world().direct_space_state
-		var result = space_state.intersect_ray(get_node("CollisionShape").global_transform.origin, cible.get_node("CollisionShape").global_transform.origin, [self])
+		var result = space_state.intersect_ray(get_node("CollisionShape").global_transform.origin, cible_vue.get_node("CollisionShape").global_transform.origin, [self])
 		if not result.empty() && result.collider.is_in_group("Joueur"):
-			var vec = cible.translation
+			var vec = cible_vue.translation
 			vec.y = $Vue.translation.y
 			$Vue.look_at(vec, Vector3.UP)
 			if($Timer.is_stopped()):
@@ -31,17 +31,17 @@ func _deplacement(delta:float):
 		move_and_slide(direction, Vector3.UP)
 
 func find_path():
-	if(cible_position != cible.translation):
-		cible_position = cible.translation
-		path = get_parent().get_node("Navigation").get_simple_path(translation, cible.translation)
+	if(cible_position != cible_vue.translation):
+		cible_position = cible_vue.translation
+		path = get_parent().get_node("Navigation").get_simple_path(translation, cible_vue.translation)
 		i_path = 1
 
 
 func _on_Vue_body_entered(body):
-	cible = body
+	cible_vue = body
 	find_path()
 	$Timer.start()
 
 func _on_Vue_body_exited(body):
-	cible = null
+	cible_vue = null
 	$Timer.stop()

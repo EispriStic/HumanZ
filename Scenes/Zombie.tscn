@@ -39,6 +39,7 @@ shape = SubResource( 3 )
 
 [node name="Vue" type="Area" parent="."]
 collision_layer = 0
+monitorable = false
 
 [node name="CollisionPolygon" type="CollisionPolygon" parent="Vue"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
@@ -53,13 +54,11 @@ material/0 = null
 
 [node name="Son" type="Area" parent="."]
 collision_layer = 0
-monitoring = false
-monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Son"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 4 )
-disabled = true
 
 [connection signal="body_entered" from="Vue" to="." method="_on_Vue_body_entered"]
 [connection signal="body_exited" from="Vue" to="." method="_on_Vue_body_exited"]
+[connection signal="area_entered" from="Son" to="." method="_on_Son_area_entered"]
