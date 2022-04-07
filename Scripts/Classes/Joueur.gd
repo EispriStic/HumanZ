@@ -7,14 +7,7 @@ var velocity_y := 0.0
 var restRot = rotation.y
 var accroupie = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-
 func _physics_process(delta):
-	
 	var direction_ground := Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")).normalized()
@@ -34,11 +27,12 @@ func _physics_process(delta):
 		direction_ground.y * actual_speed)
 	
 	move_and_slide(velocity,Vector3.UP)
+	if(!accroupie and (velocity.x != 0 or velocity.z != 0)):
+		$Bruit/CollisionShape.disabled = false
+	else:
+		$Bruit/CollisionShape.disabled = true
 	
-	#commentaire
-	
-	
-func _input(event):
+func _input(_event):
 	if(Input.is_action_just_pressed("camera_left")):
 		restRot += PI/2
 	if(Input.is_action_just_pressed("camera_right")):
