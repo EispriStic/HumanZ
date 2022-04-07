@@ -3,6 +3,7 @@ extends "res://Scripts/Classes/Zombie.gd"
 var path = []
 var i_path = 1
 var cible_position = Vector3.ZERO
+var cible_entendu
 
 func _deplacement(delta:float):
 	if cible_vue != null:
@@ -16,6 +17,10 @@ func _deplacement(delta:float):
 				$Timer.start()
 		else :
 			$Timer.stop()
+	elif cible_entendu != null:
+		var vec = cible_entendu.translation
+		vec.y = $Vue.translation.y
+		$Vue.look_at(vec, Vector3.UP)
 
 	if i_path < path.size():
 		var direction = path[i_path] - translation
@@ -30,18 +35,31 @@ func _deplacement(delta:float):
 			velocity_y = 0.0
 		move_and_slide(direction, Vector3.UP)
 
-func find_path():
-	if(cible_position != cible_vue.translation):
-		cible_position = cible_vue.translation
-		path = get_parent().get_node("Navigation").get_simple_path(translation, cible_vue.translation)
+func find_path(cible):
+	if(cible_position != cible.translation):
+		cible_position = cible.translation
+		path = get_parent().get_node("Navigation").get_simple_path(translation, cible.translation)
 		i_path = 1
 
 
 func _on_Vue_body_entered(body):
 	cible_vue = body
-	find_path()
+	find_path(cible_vue)
+
+func _on_Vue_body_exited(_body):
+	cible_vue = null
+
+func _on_Son_area_entered(area):
+	cible_entendu = area.get_parent()
+	find_path(cible_entendu)
 	$Timer.start()
 
-func _on_Vue_body_exited(body):
-	cible_vue = null
+func _on_Son_area_exited(_area):
+	cible_entendu = null
 	$Timer.stop()
+
+func _on_Timer_timeout():
+	if cible_vue != null:
+		find_path(cible_vue)
+	elif cible_entendu != null:
+		find_path(cible_entendu)
