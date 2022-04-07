@@ -16,14 +16,9 @@ func _physics_process(delta):
 	
 	direction_ground = direction_ground.rotated(-rotation.y+PI)
 	
-	if not is_on_floor():
-		velocity_y -= Global.gravity * delta
-	else:
-		velocity_y = 0.0
-	
 	var velocity = Vector3(
 		direction_ground.x * actual_speed,
-		velocity_y,
+		velocity_y - Global.gravity * delta,
 		direction_ground.y * actual_speed)
 	
 	move_and_slide(velocity,Vector3.UP)
