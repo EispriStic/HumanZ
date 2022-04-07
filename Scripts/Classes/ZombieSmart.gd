@@ -25,6 +25,12 @@ func _deplacement(delta:float):
 	if i_path < path.size():
 		var direction = path[i_path] - translation
 		direction.y = 0
+		if cible_vue == null:
+			$Vue.look_at(Vector3(
+				path[i_path].x,
+				$Vue.translation.y,
+				path[i_path].z
+			), Vector3.UP)
 		if direction.length() < 1:
 			i_path += 1
 		direction = direction.normalized() * speed
