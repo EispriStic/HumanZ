@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Classes/Joueur.gd" type="Script" id=1]
 
@@ -13,6 +13,9 @@ radius = 0.5
 
 [sub_resource type="CapsuleShape" id=4]
 radius = 0.5
+
+[sub_resource type="RayShape" id=5]
+length = 11.0
 
 [node name="Joueur" type="KinematicBody" groups=["Joueur"]]
 collision_mask = 6
@@ -48,4 +51,12 @@ collision_mask = 0
 transform = Transform( 0.999848, 0.0174524, -7.62869e-10, 0, -4.37114e-08, -1, -0.0174524, 0.999848, -4.37047e-08, 0, 1, 0 )
 shape = SubResource( 4 )
 disabled = true
-size = 50.0
+
+[node name="TubeVision" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.887011, -0.461749, 0, 0.461749, 0.887011, 0, 6, -10 )
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape" type="CollisionShape" parent="TubeVision"]
+shape = SubResource( 5 )

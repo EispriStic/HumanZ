@@ -38,3 +38,9 @@ func _input(_event):
 			actual_speed = sneek_speed
 		else:
 			actual_speed = speed
+
+func _on_TubeVision_body_entered(body):
+	pass
+
+func _on_TubeVision_body_exited(body):
+	pass

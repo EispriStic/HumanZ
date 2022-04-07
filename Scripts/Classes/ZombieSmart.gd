@@ -22,9 +22,10 @@ func _deplacement(delta:float):
 		vec.y = $Vue.translation.y
 		$Vue.look_at(vec, Vector3.UP)
 
+	var direction = Vector3.ZERO
 	if i_path < path.size():
-		var direction = path[i_path] - translation
-		direction.y = Global.gravity * delta
+		direction = path[i_path] - translation
+		direction.y = 0
 		if cible_vue == null:
 			$Vue.look_at(Vector3(
 				path[i_path].x,
@@ -34,7 +35,8 @@ func _deplacement(delta:float):
 		if direction.length() < 1:
 			i_path += 1
 		direction = direction.normalized() * speed
-		move_and_slide(direction, Vector3.UP)
+	direction.y = -Global.gravity * delta
+	move_and_slide(direction, Vector3.UP)
 
 func find_path(cible):
 	if(cible_position != cible.translation):
