@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/Joueur.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/ZombieSmart.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/HDRI/quarry_04_4k.exr" type="Texture" id=3]
-[ext_resource path="res://Scripts/Classes/Build.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Classes/Building.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Materials/Building.tres" type="Material" id=5]
+[ext_resource path="res://Assets/Materials/TestShader.tres" type="Material" id=6]
 
 [sub_resource type="PanoramaSky" id=11]
 panorama = ExtResource( 3 )
@@ -38,7 +39,7 @@ size = Vector3( 40, 2, 40 )
 extents = Vector3( 20, 1, 20 )
 
 [sub_resource type="CubeMesh" id=4]
-material = ExtResource( 5 )
+material = ExtResource( 6 )
 size = Vector3( 6, 6, 6 )
 
 [sub_resource type="BoxShape" id=6]
@@ -69,6 +70,7 @@ environment = SubResource( 12 )
 [node name="Navigation" type="Navigation" parent="."]
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0405402, 0 )
 navmesh = SubResource( 7 )
 
 [node name="Ground" type="StaticBody" parent="Navigation/NavigationMeshInstance"]
