@@ -14,8 +14,9 @@ radius = 0.5
 [sub_resource type="CapsuleShape" id=4]
 radius = 0.5
 
-[sub_resource type="RayShape" id=5]
-length = 11.0
+[sub_resource type="CylinderShape" id=5]
+radius = 0.5
+height = 10.0
 
 [node name="Joueur" type="KinematicBody" groups=["Joueur"]]
 collision_mask = 6
@@ -59,4 +60,5 @@ collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape" type="CollisionShape" parent="TubeVision"]
+transform = Transform( 1, 0, 0, 0, 1.78814e-07, -0.999999, 0, 0.999999, 1.78814e-07, 0, -0.0164669, 5.52457 )
 shape = SubResource( 5 )
